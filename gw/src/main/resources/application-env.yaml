@@ -1,0 +1,7 @@
+auth-ms:
+  url: ${AUTH-MS_URL:http://localhost:8081}
+user-ms:
+  url: ${USER-MS_URL:http://localhost:8082}
+card-ms:
+  url: ${CARD-MS_URL:http://localhost:8083}
+

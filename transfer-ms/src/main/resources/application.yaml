@@ -1,0 +1,16 @@
+server:
+  port: 8084
+  servlet:
+    context-path: /api/transfer
+spring:
+  application:
+    name: transfer-ms
+  profiles:
+    include:
+      - db
+      - queue
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    tagsSorter: alpha

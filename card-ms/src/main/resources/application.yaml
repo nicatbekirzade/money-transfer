@@ -1,0 +1,16 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /api/cards
+spring:
+  application:
+    name: card-ms
+  profiles:
+    include:
+      - db
+      - queue
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    tagsSorter: alpha

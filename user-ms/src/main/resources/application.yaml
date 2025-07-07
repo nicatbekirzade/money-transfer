@@ -1,0 +1,16 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/users
+spring:
+  application:
+    name: user-ms
+  profiles:
+    include:
+      - db
+      - queue
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    tagsSorter: alpha
