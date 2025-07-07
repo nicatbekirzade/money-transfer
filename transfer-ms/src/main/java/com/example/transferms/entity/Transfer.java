@@ -48,8 +48,8 @@ public class Transfer {
 
     String failureReason;
 
-    @Column(updatable = false, unique = true)
-    Long transactionId;
+    @Column(unique = true)
+    Long transactionNumber;
 
     @CreationTimestamp
     @Column(updatable = false)

@@ -22,6 +22,14 @@ endpoint-roles:
       roles: [ ]
 
     #    users
-    - endpoint: "/api/users/v1/info"
+    - endpoint: "/api/users/v1/user/info"
       method: "GET"
+      roles: [ "ROLE_USER" ]
+
+    #    cards
+    - endpoint: "/api/cards/v1/info"
+      method: "GET"
+      roles: [ "ROLE_USER" ]
+    - endpoint: "/api/cards/v1/top-up"
+      method: "PUT"
       roles: [ "ROLE_USER" ]

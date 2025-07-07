@@ -24,6 +24,9 @@ public class Routers {
     @Value("${card-ms.url}")
     private String cardMsUrl;
 
+    @Value("${transfer-ms.url}")
+    private String transferMsUrl;
+
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder, GatewayFilter rateLimiterFilter) {
         return builder.routes()
@@ -40,6 +43,11 @@ public class Routers {
                         .filters(f -> f.filter(authFilter)
                                 .filter(rateLimiterFilter))
                         .uri(cardMsUrl))
+
+                .route("transfer-ms", r -> r.path("/api/transfer/**")
+                        .filters(f -> f.filter(authFilter)
+                                .filter(rateLimiterFilter))
+                        .uri(transferMsUrl))
 
                 .build();
     }

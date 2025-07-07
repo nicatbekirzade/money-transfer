@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthCacheService {
 
-    private final RedisTemplate<String, Boolean> redisTemplate;
+    private final RedisTemplate<String, Boolean> apiAuthTemplate;
     private final Duration ttl = Duration.ofMinutes(10);
 
     public Boolean getCachedAuthorization(String userId, String method, String endpoint) {
         String key = generateKey(userId, method, endpoint);
-        return redisTemplate.opsForValue().get(key);
+        return apiAuthTemplate.opsForValue().get(key);
     }
 
     public void cacheAuthorization(String userId, String method, String endpoint, boolean authorized) {
         String key = generateKey(userId, method, endpoint);
-        redisTemplate.opsForValue().set(key, authorized, ttl);
+        apiAuthTemplate.opsForValue().set(key, authorized, ttl);
     }
 
     private String generateKey(String userId, String method, String endpoint) {

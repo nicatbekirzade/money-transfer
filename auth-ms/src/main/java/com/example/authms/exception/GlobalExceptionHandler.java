@@ -41,7 +41,6 @@ public class GlobalExceptionHandler extends DefaultErrorAttributes {
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Map<String, Object>> handle(
             Exception ex, WebRequest request) {
-        ex.printStackTrace();
         log.error("UNKNOWN EXCEPTION {}", (Object[]) ex.getStackTrace());
         return ofType(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }

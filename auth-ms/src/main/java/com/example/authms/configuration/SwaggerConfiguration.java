@@ -3,7 +3,6 @@ package com.example.authms.configuration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class SwaggerConfiguration {
 
     @Bean
     public OpenAPI openAPI() {
-        return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+        return new OpenAPI()
                 .addServersItem(new Server().url("http://localhost:8081/api/auth/")
                         .description("staging"))
                 .info(createApiInfo())
