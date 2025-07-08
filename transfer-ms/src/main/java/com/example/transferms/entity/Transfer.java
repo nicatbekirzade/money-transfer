@@ -48,6 +48,7 @@ public class Transfer {
 
     String failureReason;
 
+    //add index
     @Column(unique = true)
     Long transactionNumber;
 

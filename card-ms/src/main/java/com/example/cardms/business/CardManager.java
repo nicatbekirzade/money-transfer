@@ -5,6 +5,7 @@ import com.example.cardms.business.model.TransferInitiateEvent;
 import com.example.cardms.business.model.UserEvent;
 import com.example.cardms.entity.Card;
 import com.example.cardms.exception.CardGenerationException;
+import com.example.cardms.exception.CustomValidationException;
 import com.example.cardms.exception.NotFoundException;
 import com.example.cardms.repository.CardRepository;
 import com.example.cardms.util.CreditCardGenerator;
@@ -25,12 +26,14 @@ public class CardManager {
     private final CardRepository cardRepository;
     private final CardEventManager cardEventManager;
 
+    @Transactional
     public void makeTransfer(TransferInitiateEvent event) {
         CreditCardGenerator.isValidCardNumber(event.getFromCard());
         CreditCardGenerator.isValidCardNumber(event.getToCard());
         Card from = cardRepository.findAndLockByCardNumber(event.getFromCard());
         Card to = cardRepository.findAndLockByCardNumber(event.getToCard());
         if (from != null && to != null) {
+            checkUserOwnCard(from.getUserId());
             if (from.getBalance().compareTo(event.getAmount()) < 0) {
                 cardEventManager.updateTransfer(event, from.getUserId(), to.getUserId(), -1, "Insufficient balance");
                 return;
@@ -39,7 +42,7 @@ public class CardManager {
             to.setBalance(to.getBalance().add(event.getAmount()));
             cardRepository.save(from);
             cardRepository.save(to);
-            cardEventManager.updateTransfer(event, from.getUserId(), to.getUserId(),0, null);
+            cardEventManager.updateTransfer(event, from.getUserId(), to.getUserId(), 0, null);
         }
     }
 
@@ -64,6 +67,13 @@ public class CardManager {
                 .balance(BigDecimal.ZERO)
                 .build();
         cardRepository.save(card);
+    }
+
+    private void checkUserOwnCard(UUID fromId) {
+        //this check can be done before transaction creation on transfer-ms
+        if (userManager.getXUserId() != fromId) {
+            throw new CustomValidationException("User is not owner of this card");
+        }
     }
 
     private Card getByUserId(UUID userId) {

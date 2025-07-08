@@ -1,7 +1,7 @@
 package com.example.transferms.business;
 
 
-import static com.example.transferms.config.rabbit.QueueConstants.EXCHANGE_CARDS;
+import static com.example.transferms.config.rabbit.QueueConstants.EXCHANGE_TRANSACTION;
 import static com.example.transferms.config.rabbit.QueueConstants.KEY_TRANSFER;
 
 import com.example.transferms.business.model.TransferInitiateEvent;
@@ -23,6 +23,6 @@ public class TransferEventManager {
                 .toCard(t.getToCard())
                 .amount(t.getAmount())
                 .build();
-        amqpTemplate.convertAndSend(EXCHANGE_CARDS, KEY_TRANSFER, event);
+        amqpTemplate.convertAndSend(EXCHANGE_TRANSACTION, KEY_TRANSFER, event);
     }
 }

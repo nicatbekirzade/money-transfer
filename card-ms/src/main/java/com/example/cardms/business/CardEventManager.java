@@ -1,6 +1,7 @@
 package com.example.cardms.business;
 
 import static com.example.cardms.config.rabbit.QueueConstants.EXCHANGE_CARDS;
+import static com.example.cardms.config.rabbit.QueueConstants.EXCHANGE_TRANSACTION;
 import static com.example.cardms.config.rabbit.QueueConstants.KEY_TOP_UP;
 import static com.example.cardms.config.rabbit.QueueConstants.KEY_TRANSFER_RESPONSE;
 
@@ -25,7 +26,7 @@ public class CardEventManager {
         var event = TransactionLogEvent.builder()
                 .fromUserId(userId).amount(amount).type(TransactionType.TOP_UP).timestamp(epochMilli)
                 .build();
-        amqpTemplate.convertAndSend(EXCHANGE_CARDS, KEY_TOP_UP, event);
+        amqpTemplate.convertAndSend(EXCHANGE_TRANSACTION, KEY_TOP_UP, event);
     }
 
     public void updateTransfer(TransferInitiateEvent event, UUID fromUserId, UUID toUserId, int status, String message) {
@@ -42,7 +43,7 @@ public class CardEventManager {
                 .amount(event.getAmount())
                 .timestamp(Instant.now().toEpochMilli())
                 .build();
-        amqpTemplate.convertAndSend(EXCHANGE_CARDS, KEY_TRANSFER_RESPONSE, logEvent);
+        amqpTemplate.convertAndSend(EXCHANGE_TRANSACTION, KEY_TRANSFER_RESPONSE, logEvent);
     }
 
     private String formatCardNumber(String cardNumber) {
