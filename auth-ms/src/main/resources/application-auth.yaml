@@ -28,3 +28,7 @@ endpoint-roles:
     - endpoint: "/api/logs/v1/logs/user"
       method: "GET"
       roles: [ "ROLE_USER" ]
+
+    - endpoint: "/api/logs/v1/logs/card/*"
+      method: "GET"
+      roles: [ "ROLE_USER" ]
