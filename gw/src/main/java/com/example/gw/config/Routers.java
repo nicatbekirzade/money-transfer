@@ -27,6 +27,9 @@ public class Routers {
     @Value("${transfer-ms.url}")
     private String transferMsUrl;
 
+    @Value("${log-ms.url}")
+    private String logMsUrl;
+
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder, GatewayFilter rateLimiterFilter) {
         return builder.routes()
@@ -48,6 +51,11 @@ public class Routers {
                         .filters(f -> f.filter(authFilter)
                                 .filter(rateLimiterFilter))
                         .uri(transferMsUrl))
+
+                .route("log-ms", r -> r.path("/api/logs/**")
+                        .filters(f -> f.filter(authFilter)
+                                .filter(rateLimiterFilter))
+                        .uri(logMsUrl))
 
                 .build();
     }

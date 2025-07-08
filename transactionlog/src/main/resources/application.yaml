@@ -1,0 +1,16 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /api/logs
+spring:
+  application:
+    name: transaction-log
+  profiles:
+    include:
+      - db
+      - queue
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none
+    tagsSorter: alpha

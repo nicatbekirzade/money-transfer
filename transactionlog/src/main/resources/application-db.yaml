@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://admin:admin123@localhost:27017/transaction-log-db?authSource=admin
+
+    elasticsearch:
+      host: localhost
+      port: 9200
+      username: elastic
+      password: changeme

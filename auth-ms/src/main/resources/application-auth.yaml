@@ -1,21 +1,5 @@
 endpoint-roles:
   mappings:
-
-    #FIXME this is for test reason, clear it
-    - endpoint: "/api/payment/v1/test"
-      method: "GET"
-      roles: [ "ROLE_ADMIN" ]
-    - endpoint: "/api/payment/v1/mest"
-      method: "GET"
-      roles: [ "ROLE_ADMIN" ]
-    - endpoint: "/api/payment/v1/dost"
-      method: "POST"
-      roles: [ "ROLE_ADMIN" ]
-    - endpoint: "/api/payment/v1/dost"
-      method: "GET"
-      roles: [ ]
-
-#                                       USER_ROLE_MAPPINGS
     #    statistics
     - endpoint: "/api/users/v1/statistics/public"
       method: "GET"
@@ -32,4 +16,10 @@ endpoint-roles:
       roles: [ "ROLE_USER" ]
     - endpoint: "/api/cards/v1/top-up"
       method: "PUT"
+      roles: [ "ROLE_USER" ]
+
+
+    #    transfer
+    - endpoint: "/api/transfer/v1/card-to-card"
+      method: "POST"
       roles: [ "ROLE_USER" ]
