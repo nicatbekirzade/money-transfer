@@ -18,7 +18,7 @@ public class QueueConstants {
     //BINDING KEY
     public static final String KEY_USERS = "users-key";
 
-    public static final String KEY_TRANSFER = "transfer-response.transaction";
+    public static final String KEY_TRANSFER = "transfer.key";
     public static final String KEY_TOP_UP = "top-up.transaction";
     public static final String KEY_TRANSFER_RESPONSE = "transfer-response.transaction";
     public static final String KEY_TRANSACTION_LOG = "*.transaction";

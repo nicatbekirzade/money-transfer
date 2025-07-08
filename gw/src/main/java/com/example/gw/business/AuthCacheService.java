@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class AuthCacheService {
 
     private final RedisTemplate<String, Boolean> apiAuthTemplate;
-    private final Duration ttl = Duration.ofMinutes(10);
+    private final Duration ttl = Duration.ofMinutes(1);
 
     public Boolean getCachedAuthorization(String userId, String method, String endpoint) {
         String key = generateKey(userId, method, endpoint);

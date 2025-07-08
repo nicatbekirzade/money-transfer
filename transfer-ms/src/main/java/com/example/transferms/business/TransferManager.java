@@ -5,6 +5,7 @@ import com.example.transferms.api.model.TransactionStatus;
 import com.example.transferms.api.model.TransferRequestDto;
 import com.example.transferms.entity.Transfer;
 import com.example.transferms.repository.TransferRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class TransferManager {
     }
 
     public void updateTransferStatus(TransactionLogEvent event) {
-        var transfer = transferRepository.findById(event.getId()).orElse(null);
+        var transfer = transferRepository.findById(UUID.fromString(event.getId())).orElse(null);
         if (transfer != null) {
             transfer.setStatus(event.getStatus());
             transfer.setFailureReason(event.getFailureReason());

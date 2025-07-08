@@ -9,11 +9,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransactionLogMongoRepository extends MongoRepository<TransactionLogDocument, String> {
+public interface TransactionLogMongoRepository extends MongoRepository<TransactionLogDocument, UUID> {
 
-    List<TransactionLogDocument> findByFromUserId(UUID userId);
+    List<TransactionLogDocument> findByFromUserId(String userId);
 
-    Page<TransactionLogDocument> findByFromUserId(UUID userId, Pageable pageable);
+    Page<TransactionLogDocument> findByFromUserId(String userId, Pageable pageable);
 
     List<TransactionLogDocument> findByFromCardIdOrToCardId(String cardId1, String cardId2);
 }

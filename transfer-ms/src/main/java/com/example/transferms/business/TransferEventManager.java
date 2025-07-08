@@ -22,6 +22,7 @@ public class TransferEventManager {
                 .fromCard(t.getFromCard())
                 .toCard(t.getToCard())
                 .amount(t.getAmount())
+                .transactionNumber(t.getTransactionNumber())
                 .build();
         amqpTemplate.convertAndSend(EXCHANGE_TRANSACTION, KEY_TRANSFER, event);
     }

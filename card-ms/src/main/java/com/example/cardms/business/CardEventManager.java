@@ -1,6 +1,5 @@
 package com.example.cardms.business;
 
-import static com.example.cardms.config.rabbit.QueueConstants.EXCHANGE_CARDS;
 import static com.example.cardms.config.rabbit.QueueConstants.EXCHANGE_TRANSACTION;
 import static com.example.cardms.config.rabbit.QueueConstants.KEY_TOP_UP;
 import static com.example.cardms.config.rabbit.QueueConstants.KEY_TRANSFER_RESPONSE;
@@ -24,7 +23,7 @@ public class CardEventManager {
 
     public void topUpEvent(UUID userId, BigDecimal amount, long epochMilli) {
         var event = TransactionLogEvent.builder()
-                .fromUserId(userId).amount(amount).type(TransactionType.TOP_UP).timestamp(epochMilli)
+                .fromUserId(userId.toString()).amount(amount).type(TransactionType.TOP_UP).status(TransactionStatus.SUCCESS).timestamp(epochMilli)
                 .build();
         amqpTemplate.convertAndSend(EXCHANGE_TRANSACTION, KEY_TOP_UP, event);
     }
@@ -32,11 +31,12 @@ public class CardEventManager {
     public void updateTransfer(TransferInitiateEvent event, UUID fromUserId, UUID toUserId, int status, String message) {
         //SEND PARALLEL TO NOTIFICATION QUE AND ETC.
         var logEvent = TransactionLogEvent.builder()
-                .id(event.getId())
+                .id(event.getId().toString())
+                .transactionId(event.getTransactionNumber())
                 .failureReason(message)
-                .fromUserId(fromUserId)
+                .fromUserId(fromUserId.toString())
                 .fromCardId(formatCardNumber(event.getFromCard()))
-                .toUserId(toUserId)
+                .toUserId(toUserId.toString())
                 .toCardId(formatCardNumber(event.getToCard()))
                 .status(status == 0 ? TransactionStatus.SUCCESS : TransactionStatus.FAILED)
                 .type(TransactionType.TRANSFER)

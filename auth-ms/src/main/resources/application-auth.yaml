@@ -18,8 +18,13 @@ endpoint-roles:
       method: "PUT"
       roles: [ "ROLE_USER" ]
 
-
     #    transfer
     - endpoint: "/api/transfer/v1/card-to-card"
       method: "POST"
+      roles: [ "ROLE_USER" ]
+
+
+    #    logs
+    - endpoint: "/api/logs/v1/logs/user"
+      method: "GET"
       roles: [ "ROLE_USER" ]

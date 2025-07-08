@@ -8,7 +8,6 @@ import com.example.transactionlog.entity.TransactionType;
 import com.example.transactionlog.repository.TransactionLogElasticRepository;
 import com.example.transactionlog.repository.TransactionLogMongoRepository;
 import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +29,7 @@ public class TransactionLogController {
     @GetMapping("/user")
     public Page<TransactionLogDocument> getUserLogs(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "10") int size) {
-        return mongoRepo.findByFromUserId(userManager.getXUserId(), PageRequest.of(page, size));
+        return mongoRepo.findByFromUserId(userManager.getXUserId().toString(), PageRequest.of(page, size));
     }
 
     @GetMapping("/card/{cardId}")
@@ -47,14 +46,7 @@ public class TransactionLogController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return elasticRepo.findByFromUserIdAndTypeAndStatus(getUserId(userId), type, status, PageRequest.of(page, size));
+        return elasticRepo.findByFromUserIdAndTypeAndStatus(userId, type, status, PageRequest.of(page, size));
     }
 
-    private static UUID getUserId(String userId) {
-        try {
-            return UUID.fromString(userId);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }

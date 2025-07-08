@@ -15,10 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TransactionLogEvent {
 
-    private UUID id;
+    private String id;
     private Long transactionId;
-    private UUID fromUserId;
-    private UUID toUserId;
+    private String fromUserId;
+    private String toUserId;
     private String fromCardId;
     private String toCardId;
     private BigDecimal amount;

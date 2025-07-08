@@ -43,7 +43,7 @@ public class JwtService {
                 .setClaims(roles(user.getAuthorities()))
                 .setSubject(user.getUserId().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 20))
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -54,7 +54,7 @@ public class JwtService {
                 .setClaims(roles(user.getRoles()))
                 .setSubject(user.getId().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(10).toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(20).toInstant()))
                 .signWith(getSigningKey())
                 .compact();
     }

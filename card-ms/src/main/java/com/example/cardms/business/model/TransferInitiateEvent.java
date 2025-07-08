@@ -19,4 +19,5 @@ public class TransferInitiateEvent {
     private String fromCard;
     private String toCard;
     private BigDecimal amount;
+    private Long transactionNumber;
 }

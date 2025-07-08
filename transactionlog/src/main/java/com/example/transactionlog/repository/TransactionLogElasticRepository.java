@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface TransactionLogElasticRepository extends ElasticsearchRepository<TransactionLogIndex, String> {
 
     Page<TransactionLogIndex> findByFromUserIdAndTypeAndStatus(
-            UUID userId,
+            String userId,
             TransactionType type,
             TransactionStatus status,
             Pageable pageable

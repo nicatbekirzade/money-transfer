@@ -19,7 +19,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class TransactionLogIndex {
 
     @Id
-    private UUID id;
+    private String id;
 
     @Field(type = FieldType.Long)
     private Long transactionId;

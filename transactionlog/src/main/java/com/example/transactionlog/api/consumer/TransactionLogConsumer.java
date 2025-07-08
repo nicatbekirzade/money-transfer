@@ -22,7 +22,6 @@ public class TransactionLogConsumer {
     public void listen(TransactionLogEvent event) {
         TransactionLogDocument doc = mapper.map(event, TransactionLogDocument.class);
         TransactionLogIndex index = mapper.map(event, TransactionLogIndex.class);
-
         mongoRepo.save(doc);
         elasticRepo.save(index);
     }

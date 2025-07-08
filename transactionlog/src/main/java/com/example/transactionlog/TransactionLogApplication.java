@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TransactionlogApplication {
+public class TransactionLogApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TransactionlogApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TransactionLogApplication.class, args);
+    }
 
 }
